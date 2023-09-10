@@ -34,9 +34,9 @@ import {
 import DarkModeSwitch from "./DarkModeSwitch";
 
 const LinkItems = [
-  { name: "Businesses", icon: FiHome },
-  { name: "Trending", icon: FiTrendingUp },
-  { name: "Explore", icon: FiCompass },
+  { name: "Near You", icon: FiHome },
+  { name: "Upload", icon: FiTrendingUp },
+  { name: "Points", icon: FiCompass },
   { name: "Favourites", icon: FiStar },
   { name: "Settings", icon: FiSettings },
 ];

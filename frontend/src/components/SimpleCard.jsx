@@ -48,11 +48,38 @@ export default function SimpleCard({ switchToSignup, onLogin }) {
       minH={"100vh"}
       align={"center"}
       justify={"center"}
-      bg={useColorModeValue("gray.50", "gray.800")}
+      bg={useColorModeValue(
+        "linear-gradient(135deg, #E29495, #D47583, #BF556A)",
+        "gray.800"
+      )}
     >
-      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+      <Stack spacing={8} mx={"auto"} maxW={"xl"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"4xl"}>Sign in to your account</Heading>
+          <Heading
+            fontSize={"6xl"}
+            textAlign="center"
+            fontFamily="'Pacifico', cursive"
+            textShadow="
+        -2.5px -2.5px 0 #000,  
+         2.5px -2.5px 0 #000,
+         -2.5px 2.5px 0 #000,
+          2.5px 2.5px 0 #000"
+            color={"white"}
+          >
+            Reveille Rewards
+          </Heading>
+          <Text
+            fontSize={"2xl"}
+            color={"white"}
+            textShadow="
+        -1px -1px 0 #000,  
+         1px -1px 0 #000,
+         -1px 1px 0 #000,
+          1px 1px 0 #000"
+            fontFamily="'Pacifico', cursive"
+          >
+            Shop small, score big!
+          </Text>
         </Stack>
         <Box
           rounded={"lg"}
