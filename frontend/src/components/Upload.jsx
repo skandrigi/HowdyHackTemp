@@ -7,7 +7,7 @@ import {
   Image,
   useToast,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Tesseract from "tesseract.js";
 
 const Upload = () => {
@@ -15,7 +15,14 @@ const Upload = () => {
   const [fullRecognizedText, setFullRecognizedText] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
   const [uploadedImages, setUploadedImages] = useState([]);
-  const [points, setPoints] = useState(0);
+  const [points, setPoints] = useState(() => {
+    const savedPoints = localStorage.getItem("points");
+    return savedPoints ? JSON.parse(savedPoints) : 0;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("points", JSON.stringify(points));
+  }, [points]);
 
   const imageBoxStyles = {
     width: "150px", // Increased size

@@ -39,7 +39,7 @@ const LinkItems = [
   { name: "Near You", icon: FiHome },
   { name: "Upload", icon: FiTrendingUp },
   { name: "Points", icon: FiCompass },
-  { name: "Favourites", icon: FiStar },
+  { name: "Shop", icon: FiStar },
   { name: "Settings", icon: FiSettings },
 ];
 
