@@ -1,0 +1,69 @@
+import React, { useEffect } from 'react';
+
+const GoogleMap = () => {
+  useEffect(() => {
+    // Function to initialize the map
+    function initMap() {
+      // Create a map centered at the specified coordinates
+      const map = new window.google.maps.Map(document.getElementById('map'), {
+        center: { lat: 30.617712020874023, lng: -96.31748962402344 },
+        zoom: 14,
+      });
+
+      // Define marker positions and titles
+      const markers = [
+        { position: { lat: 30.617712020874023, lng: -96.31748962402344 }, title: 'Sweet Eugenes' },
+        { position: { lat: 30.61775016784668, lng: -96.34651184082031 }, title: 'The Beef and Reef Food Truck' },
+        { position: { lat: 30.59604263305664, lng: -96.29908752441406 }, title: '1541 Pastries and Coffee' },
+        { position: { lat: 30.6309871673584, lng: -96.3308334350586 }, title: 'Sabi Boutique' },
+        { position: { lat: 30.625076293945312, lng: -96.30311584472656 }, title: 'Stampede College Station' },
+        { position: { lat: 30.608556747436523, lng: -96.31932067871094 }, title: 'Maroon & White Barbershop' },
+        { position: { lat: 30.579404830932617, lng: -96.28224182128906 }, title: 'Stella Southern Cafe' },
+        { position: { lat: 30.559125900268555, lng: -96.26020050048828 }, title: "Raging Bull Street Taco's" },
+        { position: { lat: 30.63993263244629, lng: -96.31254577636719 }, title: "Kolache Rolf's" },
+        { position: { lat: 30.6209774017334, lng: -96.35230255126953 }, title: 'E11even Bar and Grill' },
+        { position: { lat: 30.598363876342773, lng: -96.30474090576172 }, title: 'Aggieland Scuba' },
+        { position: { lat: 30.643972396850586, lng: -96.33187103271484 }, title: "A Wild Hair Salon & Co" },
+        { position: { lat: 30.615243911743164, lng: -96.31977081298828 }, title: "What's The Buzz Specialty Coffee" },
+        { position: { lat: 30.674240112304688, lng: -96.37293243408203 }, title: 'Brazos Cedar Works' },
+        { position: { lat: 30.620773315429688, lng: -96.34392547607422 }, title: 'BonAppeTea' },
+        { position: { lat: 30.674015045166016, lng: -96.37451934814453 }, title: 'The Village Cafe' },
+        { position: { lat: 30.606260299682617, lng: -96.31072235107422 }, title: 'Gomez Shoe Repair' },
+        { position: { lat: 30.622304916381836, lng: -96.32780456542969 }, title: 'Burdett & Son Outdoor Adventure Shop' },
+        { position: { lat: 30.593849182128906, lng: -96.32241821289062 }, title: 'M&M Apparel' },
+        { position: { lat: 30.623722076416016, lng: -96.30840301513672 }, title: "Bea's Alterations" },
+        { position: { lat: 30.600168228149414, lng: -96.30474853515625 }, title: 'BCS Asian Market' },
+        { position: { lat: 30.607484817504883, lng: -96.30683135986328 }, title: 'iPhở' },
+        { position: { lat: 30.621509552001953, lng: -96.32634735107422 }, title: 'University Flowers' },
+        { position: { lat: 30.623371124267578, lng: -96.3284912109375 }, title: 'Brazos Valley Computers' },
+        { position: { lat: 30.67440414428711, lng: -96.372802734375 }, title: 'The String & Horn Shop' },
+        { position: { lat: 30.675458908081055, lng: -96.3734359741211 }, title: "Zeitman's Grocery Store" },
+        { position: { lat: 30.630943298339844, lng: -96.33013153076172 }, title: 'Thorn Music Center' },
+      ];
+
+      // Create markers and add them to the map
+      markers.forEach(({ position, title }) => {
+        new window.google.maps.Marker({
+          position,
+          map,
+          title,
+        });
+      });
+    }
+
+    // Load the Google Maps JavaScript API with your API key
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap&libraries=maps,marker&v=beta`;
+    script.async = true;
+    document.head.appendChild(script);
+
+    // Cleanup function to remove the script from the DOM
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
+  return <div id="map" style={{ width: '100%', height: '400px' }} />;
+};
+
+export default GoogleMap;
