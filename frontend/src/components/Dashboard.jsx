@@ -30,6 +30,7 @@ import {
   FiChevronDown,
 } from "react-icons/fi";
 import DarkModeSwitch from "./DarkModeSwitch";
+import Upload from "./Upload";
 
 const LinkItems = [
   { name: "Near You", icon: FiHome },
@@ -239,7 +240,7 @@ const Dashboard = () => {
       </Drawer>
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
-        {/* Content */}
+        <Upload />
       </Box>
     </Box>
   );
