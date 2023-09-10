@@ -12,18 +12,10 @@ function App() {
     console.log("User registered with", email, password);
   };
 
-  useEffect(() => {
-    axios.get("http://localhost:8000/hello/").then((response) => {
-      setData(response.data);
-    });
-  }, []);
-
   const [showSignup, setShowSignup] = useState(false);
 
   return (
     <>
-      {/* <div>{data ? data.message : "Loading..."}</div> */}
-
       {showSignup ? (
         <SignupCard
           switchToLogin={() => setShowSignup(false)}
