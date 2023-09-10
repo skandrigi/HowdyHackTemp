@@ -26,10 +26,15 @@ export default function SignupCard({ switchToLogin, onRegister }) {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   const handleSignup = () => {
     // Store user's credentials in local storage
     localStorage.setItem(email, password);
+    localStorage.setItem("firstName", firstName);
+    localStorage.setItem("lastName", lastName);
+
     alert("Registered Successfully!");
 
     switchToLogin();
@@ -86,13 +91,21 @@ export default function SignupCard({ switchToLogin, onRegister }) {
                 <Box>
                   <FormControl id="firstName" isRequired>
                     <FormLabel>First Name</FormLabel>
-                    <Input type="text" />
+                    <Input
+                      type="text"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                    />
                   </FormControl>
                 </Box>
                 <Box>
                   <FormControl id="lastName">
                     <FormLabel>Last Name</FormLabel>
-                    <Input type="text" />
+                    <Input
+                      type="text"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
                   </FormControl>
                 </Box>
               </HStack>
@@ -114,19 +127,20 @@ export default function SignupCard({ switchToLogin, onRegister }) {
                   />
                   <InputRightElement h={"full"}></InputRightElement>
                 </InputGroup>
+
+                <Stack spacing={10} pt={2}>
+                  <Button
+                    loadingText="Submitting"
+                    size="lg"
+                    bg={"blue.400"}
+                    color={"white"}
+                    _hover={{ bg: "blue.500" }}
+                    onClick={handleSignup}
+                  >
+                    Sign up
+                  </Button>
+                </Stack>
               </FormControl>
-              <Stack spacing={10} pt={2}>
-                <Button
-                  loadingText="Submitting"
-                  size="lg"
-                  bg={"blue.400"}
-                  color={"white"}
-                  _hover={{ bg: "blue.500" }}
-                  onClick={handleSignup}
-                >
-                  Sign up
-                </Button>
-              </Stack>
               <Stack pt={6}>
                 <Text align={"center"}>
                   Already a user?{" "}

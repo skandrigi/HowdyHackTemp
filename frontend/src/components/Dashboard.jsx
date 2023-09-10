@@ -18,6 +18,8 @@ import {
   MenuItem,
   MenuList,
   Heading,
+  Tag,
+  TagLabel,
 } from "@chakra-ui/react";
 import {
   FiHome,
@@ -122,6 +124,9 @@ const NavItem = ({ icon, children, ...rest }) => {
 };
 
 const MobileNav = ({ onOpen, ...rest }) => {
+  const savedFirstName = localStorage.getItem("firstName");
+  const savedLastName = localStorage.getItem("lastName");
+  const tokens = localStorage.getItem("points");
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -160,6 +165,16 @@ const MobileNav = ({ onOpen, ...rest }) => {
       </Heading>
 
       <HStack spacing={{ base: "0", md: "4" }}>
+        <Tag size="lg" colorScheme="red" borderRadius="full">
+          <Avatar
+            src="https://thefan-brand.com/cdn/shop/products/texas-am-aggies-modern-disc-wall-sign-525895.jpg?v=1644363931"
+            size="xs"
+            name="Segun Adebayo"
+            ml={-1}
+            mr={2}
+          />
+          <TagLabel>TAMUTokens: {tokens} </TagLabel>
+        </Tag>
         <DarkModeSwitch />
 
         <Flex alignItems={"center"}>
@@ -183,10 +198,10 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   ml="2"
                 >
                   <Text fontSize="sm" color="white">
-                    Justina Clark
+                    {savedFirstName} {savedLastName}
                   </Text>
                   <Text fontSize="xs" color="white">
-                    Admin
+                    Student
                   </Text>
                 </VStack>
                 <Box display={{ base: "none", md: "flex" }}>
