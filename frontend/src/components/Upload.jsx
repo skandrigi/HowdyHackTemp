@@ -1,11 +1,41 @@
-import { Button, Box, Text, VStack, useToast } from "@chakra-ui/react";
-import { useState } from "react";
+import {
+  Button,
+  Box,
+  Text,
+  VStack,
+  HStack,
+  Image,
+  useToast,
+} from "@chakra-ui/react";
+import { useState, useEffect } from "react";
 import Tesseract from "tesseract.js";
 
 const Upload = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [fullRecognizedText, setFullRecognizedText] = useState("");
-  const [numbersWithTwoDecimals, setNumbersWithTwoDecimals] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [uploadedImages, setUploadedImages] = useState([]);
+  const [points, setPoints] = useState(() => {
+    const savedPoints = localStorage.getItem("points");
+    return savedPoints ? JSON.parse(savedPoints) : 0;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("points", JSON.stringify(points));
+  }, [points]);
+
+  const imageBoxStyles = {
+    width: "150px", // Increased size
+    height: "150px",
+    bgSize: "cover",
+    bgPosition: "center",
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", // subtle shadow
+    border: "1px solid #E2E8F0", // light border
+    transition: "transform 0.3s", // for hover effect
+    "&:hover": {
+      transform: "scale(1.05)", // zoom-in effect on hover
+    },
+  };
 
   const toast = useToast();
 
@@ -15,15 +45,17 @@ const Upload = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setSelectedImage(reader.result);
+        setUploadedImages((prevImages) => [...prevImages, reader.result]);
       };
       reader.readAsDataURL(file);
     }
   };
 
   const extractTotalPrice = (text) => {
-    const pattern = /subtotal[^0-9]*?(\d+\.\d{2})/i; // This will capture any number of non-digit characters between "total" and the actual price.
+    // This pattern now looks for both "subtotal" and "sub-total"
+    const pattern = /sub(-)?total[^0-9]*?(\d+\.\d{2})/i;
     const match = text.match(pattern);
-    return match ? match[1] : null;
+    return match ? parseFloat(match[2]) : null;
   };
 
   const [recognizedTexts, setRecognizedTexts] = useState(() => {
@@ -33,7 +65,6 @@ const Upload = () => {
 
   const handleUpload = async () => {
     if (selectedImage) {
-      // Recognize text from the image using Tesseract.js
       try {
         const result = await Tesseract.recognize(selectedImage, "eng");
 
@@ -104,15 +135,6 @@ const Upload = () => {
           <Button as="span">Choose an image</Button>
         </label>
       </Box>
-      {selectedImage && (
-        <Box>
-          <img
-            src={selectedImage}
-            alt="Chosen"
-            style={{ height: "150px", width: "150px" }}
-          />
-        </Box>
-      )}
       <Button onClick={handleUpload} colorScheme="blue">
         Recognize Text
       </Button>

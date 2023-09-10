@@ -33,16 +33,19 @@ import {
 } from "react-icons/fi";
 import DarkModeSwitch from "./DarkModeSwitch";
 import Upload from "./Upload";
+// import use states from react
+import React from "react";
+import NearYou from "./NearYou";
 
 const LinkItems = [
   { name: "Near You", icon: FiHome },
   { name: "Upload", icon: FiTrendingUp },
   { name: "Points", icon: FiCompass },
-  { name: "Favourites", icon: FiStar },
+  { name: "Shop", icon: FiStar },
   { name: "Settings", icon: FiSettings },
 ];
 
-const SidebarContent = ({ onClose, ...rest }) => {
+const SidebarContent = ({ onClose, setActiveContent, ...rest }) => {
   return (
     <Box
       transition="3s ease"
@@ -78,6 +81,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
           icon={link.icon}
           color="white"
           fontWeight="bold"
+          setActiveContent={setActiveContent}
         >
           {link.name}
         </NavItem>
@@ -86,13 +90,14 @@ const SidebarContent = ({ onClose, ...rest }) => {
   );
 };
 
-const NavItem = ({ icon, children, ...rest }) => {
+const NavItem = ({ icon, children, setActiveContent, ...rest }) => {
   return (
     <Box
       as="a"
       href="#"
       style={{ textDecoration: "none" }}
       _focus={{ boxShadow: "none" }}
+      onClick={() => setActiveContent(children)}
     >
       <Flex
         align="center"
@@ -228,6 +233,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
 
 const Dashboard = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [activeContent, setActiveContent] = React.useState("Near You");
 
   return (
     <Box
@@ -240,6 +246,7 @@ const Dashboard = () => {
       <SidebarContent
         onClose={() => onClose}
         display={{ base: "none", md: "block" }}
+        setActiveContent={setActiveContent}
       />
       <Drawer
         isOpen={isOpen}
@@ -255,8 +262,8 @@ const Dashboard = () => {
       </Drawer>
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
-        <Upload />
-        {/* CHANGE ABOVE ^^^^^^ */}
+        {activeContent === "Upload" && <Upload />}
+        {activeContent === "Near You" && <NearYou />}
       </Box>
     </Box>
   );
